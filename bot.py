@@ -13,7 +13,7 @@ prefix = '~'
 Client = discord.Client()
 client = commands.Bot(command_prefix=prefix)
 
-OWNER_ROLE = '509078528256638991'
+OWNER_ROLE = '500647537116708885'
 
 languages = {
 ':United_Kingdom:':'gb',
@@ -61,8 +61,6 @@ async def on_reaction_add(reaction, user):
     content = reaction.message.content
     emoji = reaction.emoji
 
-    print(emoji)
-
     name = emojimodule.demojize(emoji)
     embed = discord.Embed(colour=0xff8000)
 
@@ -79,13 +77,47 @@ async def commands(ctx):
     author = ctx.message.author
     embed = discord.Embed(colour=0xff8000)
 
-    msg = '''
-•react with a flag to get translations
-•clear [number] = deletes [number] previous messages, 5 by default'''
-    embed.add_field(name='Commands', value=msg, inline=False)
+    msg = '''```-React with a flag to get translations
+~translations = Gets the flags that you can react with
+~translate <target_language> [message...]
+~translate_message <target_language> <message_id>
+~clear <number of messages to purge, 5 is the default>```'''
 
-    await client.send_message(ctx.message.channel, embed=embed)
+    await client.send_message(ctx.message.channel, content=msg)
 
+@client.command(pass_context=True)
+async def translate(ctx, target_language='', *message):
+    if not target_language or not message:
+        await client.send_message(ctx.message.channel, content='```~translate <target_language> <message_id OR message...>```')
+    else:
+        try:
+            #find messages
+            id = message[0]
+
+            msg = await client.get_message(ctx.message.channel, id)
+            trans = mt.translate(msg.content, target_language, 'auto')
+
+            embed = discord.Embed(colour=0xff8000)
+            embed.add_field(name='Translation: '+trans, value='Original: '+msg.content, inline=False)
+
+            await client.send_message(ctx.message.channel, embed=embed)
+        except Exception:
+            #translate raw message
+            msg = mt.translate(' '.join(message), target_language, 'auto')
+            await client.send_message(ctx.message.channel, content=msg)
+
+@client.command(pass_context=True)
+async def translate_message(ctx, target_language='', message_id=''):
+    if not target_language or not message_id:
+        await client.send_message(ctx.message.channel, content='```~translate_message <target_language> <message_id>```')
+    else:
+        msg = await client.get_message(ctx.message.channel, message_id)
+        trans = mt.translate(msg.content, target_language, 'auto')
+
+        embed = discord.Embed(colour=0xff8000)
+        embed.add_field(name='Translation: '+trans, value='Original: '+msg.content, inline=False)
+
+        await client.send_message(ctx.message.channel, embed=embed)
 
 @client.command(pass_context=True)
 async def clear(ctx, amount='5'):
