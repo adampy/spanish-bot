@@ -61,6 +61,8 @@ async def on_reaction_add(reaction, user):
     content = reaction.message.content
     emoji = reaction.emoji
 
+    print(emoji)
+
     name = emojimodule.demojize(emoji)
     embed = discord.Embed(colour=0xff8000)
 
@@ -89,8 +91,6 @@ async def commands(ctx):
 async def clear(ctx, amount='5'):
     channel = ctx.message.channel
     author = ctx.message.author
-
-    print('x')
 
     if OWNER_ROLE in [y.id for y in author.roles]:
         if float(amount).is_integer():
