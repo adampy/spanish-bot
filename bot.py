@@ -104,4 +104,4 @@ async def clear(ctx, amount='5'):
         msg = "Hey <@{}>, you aren't alpha male enough to do that :smaller:".format(author.id)
         await client.send_message(channel, msg)
 
-client.run(TOKEN)
+client.run(process.env.TOKEN)
