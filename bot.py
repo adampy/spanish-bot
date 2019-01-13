@@ -161,7 +161,7 @@ async def translate(ctx, target_language='', *message):
             await client.send_message(ctx.message.channel, content=msg)
 
 @client.command(pass_context=True)
-async def qotd(ctx, language, *question):
+async def qotd(ctx, language='', *question):
     if not language or not question:
         await client.send_message(ctx.message.channel, content='```~qotd <current_language> [question...]```')
     else:
