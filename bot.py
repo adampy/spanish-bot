@@ -72,7 +72,7 @@ def get_question_string(message):
 :flag_jp: {}
 :flag_kr: {}
 :flag_cz: {}
-:flag_rs: {}
+:flag_ru: {}
 :flag_se: {}
 
 The question of the day was submitted by - <@{}>. If any translations are wrong, feel free to tell a member of the staff team :smiley:
@@ -135,7 +135,7 @@ async def language_codes(ctx):
 :flag_jp: = ja
 :flag_kr: = ko
 :flag_cz: = cs
-:flag_rs: = ru
+:flag_ru: = ru
 :flag_se: = sv
 ''')
 
