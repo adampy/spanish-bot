@@ -104,7 +104,7 @@ async def on_reaction_add(reaction, user):
         embed.add_field(name=content, value=msg, inline=False)
         await client.send_message(channel, embed=embed)
 
-    await client.send_message(channel, '{} has added {} to the the message {}'.format(user.name, reaction.emoji, reaction.message.content))
+    #await client.send_message(channel, '{} has added {} to the the message {}'.format(user.name, reaction.emoji, reaction.message.content))
 
 @client.command(pass_context=True)
 async def help(ctx):
