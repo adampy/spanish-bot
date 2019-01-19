@@ -75,7 +75,7 @@ def get_question_string(message):
 :flag_ru: {}
 :flag_se: {}
 
-The question of the day was submitted by - <@{}>. If any translations are wrong, feel free to tell a member of the staff team :smiley:
+@here - The question of the day was submitted by - <@{}>. If any translations are wrong, feel free to tell a member of the staff team :smiley:
 --------------------'''.format(*translations)
 
     return string
