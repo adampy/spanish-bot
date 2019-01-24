@@ -48,8 +48,11 @@ languages = {
 ':France:':'fr',
 ':Germany:':'de',
 ':Portugal:':'pt',
-':Polish:':'pl',
-':Ceuta_&_Melilla:':'es'
+':Poland:':'pl',
+':Ceuta_&_Melilla:':'es',
+':South_Korea:':'ko',
+':North_Korea:':'ko',
+':Italy:':'it',
 }
 
 #---Functions---
@@ -103,8 +106,17 @@ async def on_reaction_add(reaction, user):
         msg = mt.translate(content, language, 'auto')
         embed.add_field(name=content, value=msg, inline=False)
         await client.send_message(channel, embed=embed)
+    else:
+        print(name)
 
     #await client.send_message(channel, '{} has added {} to the the message {}'.format(user.name, reaction.emoji, reaction.message.content))
+
+@client.command(pass_context=True)
+async def supported_reactions(ctx):
+    string = '----*Flags that you can react with to get a translation*----'+'\n'
+    for key in languages:
+        string += (emojimodule.emojize(key) + '\n')
+    await client.send_message(ctx.message.channel, content=string)
 
 @client.command(pass_context=True)
 async def help(ctx):
@@ -114,6 +126,8 @@ async def help(ctx):
     msg = '''```-React with a flag to get translations (if you want more flags adding, please ping Adam C)
 
 ~language_codes = Gets all the codes for languages that are used for ~translate and ~qotd
+
+~supported_reactions = Gets the flags you can react with and get an instant translation for
 
 ~translate <target_language> [message...]
 
