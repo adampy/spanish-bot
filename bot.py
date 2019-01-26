@@ -53,6 +53,10 @@ languages = {
 ':South_Korea:':'ko',
 ':North_Korea:':'ko',
 ':Italy:':'it',
+':Malta:':'mt',
+':Japan:':'ja',
+':Czechia:':'cs',
+':China:':'zh-TW'
 }
 
 #---Functions---
@@ -83,7 +87,9 @@ def get_question_string(message):
 
     return string
 
-    #need to add translations to the question
+def country_from_emoji(emoji_string):
+    string = emoji_string[1:-1]
+    return string.replace('_', ' ')
 
 #---APP---
 
@@ -115,7 +121,7 @@ async def on_reaction_add(reaction, user):
 async def supported_reactions(ctx):
     string = '----*Flags that you can react with to get a translation*----'+'\n'
     for key in languages:
-        string += (emojimodule.emojize(key) + '\n')
+        string += (emojimodule.emojize(key) + ' ' + country_from_emoji(key) + '\n')
     await client.send_message(ctx.message.channel, content=string)
 
 @client.command(pass_context=True)
